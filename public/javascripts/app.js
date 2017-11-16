@@ -1,3 +1,11 @@
+String.prototype.format = function() {
+  a = this;
+  for (k in arguments) {
+    a = a.replace("{" + k + "}", arguments[k])
+  }
+  return a
+}
+
 angular.module("contact",[])
     .controller("MainCtrl",[
         "$scope","$http",
@@ -43,6 +51,7 @@ angular.module("contact",[])
 
         /* Function to send an SMS message using API built by Dan Kindt. */
         $scope.sendSMS = function(contact) {
+            var alertmsg = "{0}";
             var name = contact.name;
             var phoneNumber = contact.number;
             console.log("Attempting to send SMS to " + name);
@@ -67,18 +76,17 @@ angular.module("contact",[])
 
             }).then(function successCallback(response) {
                 var data = response.data;
+                var msg = alertmsg.format(data.msg);
                 console.log("SMS sent response: " + data);
-                $scope.alertType = "alert alert-info";
-                $scope.alertMSG = data;
+                $scope.alertType = "alert alert-info alert-dismissable fade in";
+                $scope.alertMSG = msg;
 
             }, function errorCallback(response) {
                 console.log("failed! statusText: " + response.statusText);
-                $scope.alertType = "alert alert-danger";
-                var errorMsg = "Unable to send SMS.  Status Text: ";
-                errorMsg += response.statusText;
-                $scope.alertMSG = errorMsg;
+                var msg = "Unable to send SMS.  Status Text: {0}";
+                $scope.alertType = "alert alert-danger alert-dismissable fade in";
+                $scope.alertMSG = msg.format(response.statusText);
             });
         };
     }
 ]);
-

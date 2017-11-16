@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
