@@ -1,5 +1,3 @@
-
-
 <html>
 <head>
   <title>Comments</title>
@@ -15,9 +13,9 @@
 	</form>
 
 	<div ng-repeat="contact in contacts">
-<span class="glyphicon glyphicon-remove" ng-click="delete(contact)"></span>		
-		{{contact.name}} @ {{contact.number}}
-<span class="glyphicon glyphicon-send" ng-click=""></span>
+    <span class="glyphicon glyphicon-remove" ng-click="delete(contact)"></span>		
+		  {{contact.name}} @ {{contact.number}}
+    <span class="glyphicon glyphicon-send" ng-click="sendSMS(contact)"></span>
 	</div>
 </body>
 </html>
