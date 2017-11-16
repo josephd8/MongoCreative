@@ -48,7 +48,7 @@ angular.module('contact',[])
   $scope.sendSMS = function() {
     console.log("Attempting to send SMS to " + $scope.name);
     
-  }
+  };
 
 
   }
