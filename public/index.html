@@ -1,0 +1,23 @@
+
+
+<html>
+<head>
+  <title>Comments</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="javascripts/app.js"></script>
+</head>
+<body ng-app="contact" ng-controller="MainCtrl">
+	<form ng-submit="addContacts()">
+		<input type="text" ng-model="name" value="Name"></input>
+		<input type="text" ng-model="number" value="Number"></input>
+		<button type="submit">Add Contact</button>
+	</form>
+
+	<div ng-repeat="contact in contacts">
+<span class="glyphicon glyphicon-remove" ng-click="delete(contact)"></span>		
+		{{contact.name}} @ {{contact.number}}
+<span class="glyphicon glyphicon-send" ng-click=""></span>
+	</div>
+</body>
+</html>
