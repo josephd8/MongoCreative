@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Comments</title>
+  <title>Cotacts</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
   <script src="javascripts/app.js"></script>
@@ -11,11 +11,15 @@
 		<input type="text" ng-model="number" value="Number"></input>
 		<button type="submit">Add Contact</button>
 	</form>
-
+  
+  <!-- We can use this div to alert of errors or other responses  -->
+  <div class="{{alertType}}" id="sms-response">
+    <p>{{alertMSG}}</p>
+  </div>
 	<div ng-repeat="contact in contacts">
     <span class="glyphicon glyphicon-remove" ng-click="delete(contact)"></span>		
 		  {{contact.name}} @ {{contact.number}}
     <span class="glyphicon glyphicon-send" ng-click="sendSMS(contact)"></span>
-	</div>
+  </div>
 </body>
 </html>

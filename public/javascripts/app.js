@@ -40,14 +40,48 @@ angular.module('contact',[])
       $http.delete('/contacts/' + contact._id )
         .success(function(data){
           console.log("delete worked");
+          $scope.alertType = "alert alert-success";
+          $scope.alertMSG = "Deleted " + contact.name + " from contacts";
         });
       	$scope.getAll();
       }; //End of delete
   
   /* Function to send an SMS message using custom API built by Dan Kindt. */
-  $scope.sendSMS = function() {
-    console.log("Attempting to send SMS to " + $scope.name);
-    
+  $scope.sendSMS = function(contact) {
+    console.log("Attempting to send SMS to " + contact.name);
+    $http({
+      url: "https://www.searchit.today/send-sms",
+      method: "POST",
+      data: {
+        "fName": contact.name,
+        "pNum": contact.number,
+      },
+      headers: {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      transformRequest: function(o) {
+        var str = [];
+        for(var p in o) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(o[p]));
+        };
+        return str.join("&");
+      } //End of transformRequest
+
+    }).then(function successCallback(response) {
+      console.log("success! response: " + response.data);
+      var msg = "Successfully sent SMS to " + contact.name + " using " + 
+        contact.number + ". Response: " + response.data;
+      $scope.alertType = "alert alert-success";
+      $scope.alertMSG = msg;
+
+    }, function errorCallback(response) {
+      console.log("failed! statusText: " + response.statusText);
+      $scope.alertType = "alert alert-danger";
+      var errorMsg = "Unable to send SMS.  Status Text: ";
+      errorMsg += response.statusText;
+      $scope.alertMSG = errorMsg;
+    });
   };
 
 
